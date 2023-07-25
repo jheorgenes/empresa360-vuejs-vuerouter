@@ -21,7 +21,7 @@ export default {
     // Necessita ter um ouvinte programado e esse ouvinte é a propriedade $route (não confundir com $router)
     // Essa propriedade $route é um método que será executado (quando houver qualquer mudança na propriedade $route que é inferida do vue-router)
     $route(to) { //Convenção de parametro: to = novoValor, from = valorAntigo
-      this.getDadosApi(`http://localhost:3000/servicos/${to.params.id}`);
+      if(to.params.id != undefined) this.getDadosApi(`http://localhost:3000/servicos/${to.params.id}`);
     }
   }
 }
