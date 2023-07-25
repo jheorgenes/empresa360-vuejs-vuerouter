@@ -3,9 +3,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Contratos from '@/components/vendas/Contratos.vue'
 import Dashboard from '@/components/dashboard/Dashboard.vue'
 import Home from '@/views/Home.vue'
-import Leads from '@/components/vendas/Leads.vue'
 import Lead from '@/components/vendas/Lead.vue'
+import Leads from '@/components/vendas/Leads.vue'
 import Login from '@/views/Login.vue'
+import Servico from '@/components/servicos/Servico.vue'
 import Servicos from '@/components/servicos/Servicos.vue'
 import Site from '@/views/Site.vue'
 import Vendas from '@/components/vendas/Vendas.vue'
@@ -23,7 +24,11 @@ const routes = [
           { path: 'contratos', component: Contratos, name: 'contratos' },
         ]
       },
-      { path: 'servicos', component: Servicos, name: 'servicos' },
+      { path: 'servicos', component: Servicos, name: 'servicos', children: 
+        [
+          { path: ':id', component: Servico, name: 'servico' },
+        ]
+      },
       { path: 'dashboard', component: Dashboard }
     ]
   }, 
