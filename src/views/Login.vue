@@ -38,10 +38,20 @@ export default {
   methods: {
     navegarPara(){
       // console.log(this.$router); //Objeto de roteamento
-      // this.$router.push('/home');
+
+      //Coletar os dados do e-mail e senha
+      //realizar uma requisição http de autenticação
+      //receber o token de autorização
+
+      this.$router.push('/home');
       // this.$router.push({ path: '/home' }); //Adiciona ao histórico de navegação
-      this.$router.replace('/home'); //Não adiciona no histórico de navegação, apenas substitui a url atual
-      this.$router.replace({ path: '/home' })
+      // this.$router.replace('/home'); //Não adiciona no histórico de navegação, apenas substitui a url atual
+
+      // this.$router.replace({ path: '/home' })
+      // this.$router.forward() //Avanca no histórico de rotas do navegador
+      // this.$router.back()  //Retorna no histório de rotas do navegador
+      // this.$router.go(2) //Avançar ou Retornar no histório de rotas do navegador (recebe um inteiro)
+      // this.$router.go(-2)
     }
   }
 }
