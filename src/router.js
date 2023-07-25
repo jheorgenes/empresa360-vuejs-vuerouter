@@ -19,7 +19,7 @@ const routes = [
         [
           { path: '', component: VendasPadrao }, ////localhost:8080/home/vendas
           { path: 'leads', component: Leads },
-          { path: 'leads/:id', component: Lead }, // :id será uma variável
+          { path: 'leads/:id', component: Lead, name: 'lead' }, // :id será uma variável
           { path: 'contratos', component: Contratos, name: 'contratos' },
         ]
       },
