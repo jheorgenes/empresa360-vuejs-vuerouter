@@ -9,6 +9,7 @@ import Lead from '@/components/vendas/Lead.vue'
 import Leads from '@/components/vendas/Leads.vue'
 import Login from '@/views/Login.vue'
 import Opcoes from '@/components/servicos/Opcoes.vue'
+import PaginaNaoEncontrada from '@/views/PaginaNaoEncontrada.vue'
 import Servico from '@/components/servicos/Servico.vue'
 import Servicos from '@/components/servicos/Servicos.vue'
 import Site from '@/views/Site.vue'
@@ -59,6 +60,9 @@ const routes = [
       return { name: 'vendas' } 
     } 
   },
+  // Rota para pegar outros endereços digitados errados e redirecionar para um componente
+  // { path: '/:catchAll(.*)*', redirect: '/' } //no vue2 o path era: '*'
+  { path: '/:catchAll(.*)*', component: PaginaNaoEncontrada }
 ]
 
 const router = createRouter({
