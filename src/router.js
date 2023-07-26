@@ -17,19 +17,19 @@ import VendasPadrao from '@/components/vendas/VendasPadrao.vue'
 
 const routes = [
   { path: '/', component: Site },
-  { path: '/home', component: Home, children: 
+  { path: '/home', alias: '/app', component: Home, children: 
     [
       { path: 'vendas', component: Vendas, children: 
         [
-          { path: '', component: VendasPadrao }, ////localhost:8080/home/vendas
+          { path: '', component: VendasPadrao, name: 'vendas' }, ////localhost:8080/home/vendas
           { path: 'leads', component: Leads, name: 'leads'},
-          { path: 'leads/:id', component: Lead, name: 'lead' }, // :id será uma variável
+          { path: 'leads/:id', component: Lead, name: 'lead', alias: ['/l/:id', '/pessoa/:id', '/:id'] }, // :id será uma variável
           { path: 'contratos', component: Contratos, name: 'contratos' },
         ]
       },
       { path: 'servicos', component: Servicos, name: 'servicos', children: 
         [
-          { path: ':id', name: 'servico', components: 
+          { path: ':id', alias: '/s/:id', name: 'servico', components: 
               {
                 default: Servico,
                 opcoes: Opcoes,
@@ -47,6 +47,18 @@ const routes = [
     ]
   }, 
   { path: '/login', component: Login },
+  { path: '/redirecionamento-1', redirect: '/home/servicos' },
+  { path: '/redirecionamento-2', redirect: { name: 'leads' } },
+  { path: '/redirecionamento-3', redirect: '/home/vendas' },
+  { path: '/redirecionamento-4', redirect: { name: 'vendas' } },
+  { path: '/redirecionamento-5', redirect: to => {
+      //podemos programar algo antes do redirecionamento ser efetivado
+      console.log(to);
+
+      // return '/home/vendas'
+      return { name: 'vendas' } 
+    } 
+  },
 ]
 
 const router = createRouter({
