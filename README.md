@@ -5,6 +5,18 @@
 npm install
 ```
 
+## Dependêncies
+
+### Vue-router
+```
+npm i vue-router@4.0.12 --save -E
+```
+
+### json-server
+```
+npm i -g json-server@v0.17.0 -E
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve

@@ -3,7 +3,7 @@
     <h5>Servicos</h5>
     <hr>
     <div class="row">
-      <div class="col mb-2" v-for="d in dados" :key="d.id">
+      <div class="col mb-2" v-for="d in dados" :key="d.id"><!-- Dados estão vindo do mixin -->
         <div class="card" style="width: 11rem">
           <img :src="`/img/${d.icone}`" class="card-img-top">
           <div class="card-body text-center">

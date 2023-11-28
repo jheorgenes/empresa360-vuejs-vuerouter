@@ -19,7 +19,7 @@ export default {
   beforeRouteUpdate(to, from, next){ //Hook de route parecido com o método watch que foi criado anteriormente
     //to = $route para onde estamos indo
     //from = $route de onde estamos vindo
-    //next = fas com que o fluxo de navegação siga em frente
+    //next = Deixa o fluxo de navegação seguir em frente
 
     if(to.params.id != undefined) this.getDadosApi(`http://localhost:3000/servicos/${to.params.id}`);
     next(); //next tem que vir no final para continuar a navegação

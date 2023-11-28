@@ -15,6 +15,7 @@
 
     <div class="d-flex">
       <div class="list-group menu-esquerda">
+        <!-- Definindo exact-active-class o nome da classe que será renderizado no navegador é o nome passado como parâmetro -->
         <router-link class="list-group-item list-group-item-action" to="/home/dashboard" exact-active-class="active">
           <i class="bi bi-speedometer2"></i> Dashboard
         </router-link>

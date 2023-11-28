@@ -1,7 +1,8 @@
 <template>
   <div>
     <h5>Contratos</h5>
-    <router-link class="btn btn-primary" :to="{ name: 'contratos', query: { leadId_like: 1 } }" >LeadId = 1</router-link>
+    <!-- definindo queryParams nas urls -->
+    <router-link class="btn btn-primary" :to="{ name: 'contratos', query: { leadId_like: 1 } }" >LeadId = 1</router-link><!-- Passando queryParams conforme padrão do json-server -->
     <router-link class="btn btn-primary" to="/home/vendas/contratos?servicoId_like=2" >ServicoId = 2</router-link>
     <router-link class="btn btn-success" :to="{ name: 'contratos', query: { leadId_like: 1, servicoId_like: 2 } }" >LeadId = 1 e ServicoId = 2</router-link>
     <router-link class="btn btn-success" to="/home/vendas/contratos?servicoId_like=2&leadId_like=2" >ServicoId = 2 e LeadId = 2</router-link>
@@ -13,7 +14,7 @@
           <th scope="col">SERVICO</th>
           <th scope="col">DATA INICIO</th>
           <th scope="col">DATA FINAL</th>
-        </tr>
+        </tr>+
       </thead>
       <tbody>
         <tr v-for="d in dados" :key="d.id">
@@ -38,16 +39,16 @@ export default {
     parametrosDeRelacionamento: '_expand=lead&_expand=servico'
   }),
   created() {
-    this.getDadosApi(`http://localhost:3000/contratos?${this.parametrosDeRelacionamento}`);
+    // this.$route.query trás as queryParams da requisição como um objeto
+    const queryParams = new URLSearchParams(this.$route.query).toString(); //Convertendo o objeto em queryParams
+    const url = `http://localhost:3000/contratos?${this.parametrosDeRelacionamento}&${queryParams}`;
+    this.getDadosApi(url);
   },
   beforeRouteUpdate(to, from, next){
-    // console.log(to.query); //objeto => URLSearchParams
+    // O parametro 'to' trás a nova url que foi consultada
     //URLSearchParams é um objeto nativo do js com o objetivo de transformar objetos em queryParams (reconhecido pelo navegador)
     const queryParams = new URLSearchParams(to.query).toString(); //Construindo um URLSearchParams (recebendo como argumento o objeto que será convertido para queryParams)
-    console.log(to.query);
-    console.log(queryParams);
     const url = `http://localhost:3000/contratos?${this.parametrosDeRelacionamento}&${queryParams}`;
-    console.log(url);
     this.getDadosApi(url);
     next();
   }
