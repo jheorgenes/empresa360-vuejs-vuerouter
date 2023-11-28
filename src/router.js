@@ -41,10 +41,11 @@ const routes = [
             name: 'leads' 
           },
           { 
-            path: 'leads/:id', 
+            path: 'leads/:id/:outroParametro', 
+            props: true, //Indicando o uso de props
             component: Lead, 
             name: 'lead', 
-            alias: ['/l/:id', '/pessoa/:id', '/:id'] //Definindo rotas apelidadas para acesso
+            alias: ['/l/:id/:outroParametro', '/pessoa/:id/:outroParametro', '/:id/:outroParametro'] //Definindo rotas apelidadas para acesso
           }, // :id será uma variável que receberá o parâmetro definido no routerlink
           { 
             path: 'contratos', 
@@ -60,6 +61,11 @@ const routes = [
         children: [
           {
             path: ':id', 
+            props: {
+              default: true,
+              indicadores: true,
+              opcoes: true
+            },
             alias: '/s/:id', 
             name: 'servico', 
             components: {

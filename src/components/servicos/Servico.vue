@@ -12,9 +12,11 @@ import ApiMixin from '@/mixins/ApiMixin'
 
 export default {
   name: 'Servico',
+  props: ['id'],
   mixins: [ApiMixin],
   created() {
-    this.getDadosApi(`http://localhost:3000/servicos/${this.$route.params.id}`);
+    console.log('Parametro via props =>', this.id);
+    this.getDadosApi(`http://localhost:3000/servicos/${this.id}`);
   },
   beforeRouteUpdate(to, from, next){ //Hook de route parecido com o método watch que foi criado anteriormente
     //to = $route para onde estamos indo

@@ -19,7 +19,7 @@
             <!-- <router-link :to="`/home/vendas/leads/${d.id}`" class="btn btn-sm btn-primary">
               <i class="bi bi-pencil-square" style="cursor: pointer"></i>
             </router-link> -->
-            <router-link :to="{ name: 'lead', params: { id: d.id } }" class="btn btn-sm btn-primary"><!-- Indicando que será passado um parâmetro na rota com o objeto de id igual ao recebido como argumento -->
+            <router-link :to="{ name: 'lead', params: { id: d.id, outroParametro: `teste_${d.id}` } }" class="btn btn-sm btn-primary"><!-- Indicando que será passado um parâmetro na rota com o objeto de id igual ao recebido como argumento -->
               <i class="bi bi-pencil-square" style="cursor: pointer"></i>
             </router-link>
           </td>
