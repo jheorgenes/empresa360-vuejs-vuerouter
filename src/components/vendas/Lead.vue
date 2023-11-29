@@ -42,5 +42,11 @@ export default {
   //   // console.log(this.$route); //Objeto da rota
   //   console.log(this.$route.params);
   // }
+  // Se retornar true, vai prosseguir com a próxima rota chamada.
+  beforeRouteLeave() {
+    const confirmar = window.confirm('Deseja sair desse formulário?');
+
+    return confirmar;
+  }
 }
 </script>

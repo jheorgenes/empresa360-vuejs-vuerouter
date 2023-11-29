@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // import { createRouter, createWebHashHistory } from 'vue-router'
-import Contratos from '@/components/vendas/Contratos.vue'
-import Dashboard from '@/components/dashboard/Dashboard.vue'
-import DashboardRodape from '@/components/dashboard/DashboardRodape.vue'
+
+
 import Home from '@/views/Home.vue'
 import Indicadores from '@/components/servicos/Indicadores.vue'
 import Lead from '@/components/vendas/Lead.vue'
@@ -16,13 +15,21 @@ import Site from '@/views/Site.vue'
 import Vendas from '@/components/vendas/Vendas.vue'
 import VendasPadrao from '@/components/vendas/VendasPadrao.vue'
 
+//lazy loading
+//import Contratos from '@/components/vendas/Contratos.vue'
+const Contratos = () => import('@/components/vendas/Contratos.vue');
+const Dashboard = () => import('@/components/dashboard/Dashboard.vue');
+const DashboardRodape = () => import('@/components/dashboard/DashboardRodape.vue');
+
 const routes = [
   { 
     path: '/', 
-    component: Site 
+    component: Site,
+    meta: { requerAutorizacao: false } //Route Meta fields
   },
   {
     path: '/home', 
+    meta: { requerAutorizacao: true }, //Route Meta fields
     alias: '/app', 
     component: Home, 
     children: [
@@ -38,11 +45,26 @@ const routes = [
           { 
             path: 'leads', 
             component: Leads, 
-            name: 'leads' 
+            name: 'leads',
+            // beforeEnter(to, from, next) {
+            beforeEnter() {
+              //poderíamos verificar se o usuário tem permissão de carregar a rota
+              console.log('Guarda de rota beforeEnter');
+            }
           },
           { 
             path: 'leads/:id/:outroParametro', 
-            props: true, //Indicando o uso de props
+            props: true,
+            // props: route => {
+
+            //   console.log('Rota ativa', route);
+            //   let teste = route.query.idioma ? route.query.idioma : route.params.outroParametro;
+
+            //   return {
+            //     id: parseInt(route.params.id) + 1,
+            //     outroParametro: teste
+            //   }
+            // }, //Indicando o uso de props
             component: Lead, 
             name: 'lead', 
             alias: ['/l/:id/:outroParametro', '/pessoa/:id/:outroParametro', '/:id/:outroParametro'] //Definindo rotas apelidadas para acesso
@@ -125,7 +147,48 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes //Escrevendo de forma enchuta ao invés de routes: routes
+  // Método para scrollagem de páginas
+  // scrollBehavior(to, from, savedPoition) {
+  scrollBehavior(to, savedPoition) {
+    //savedPoition armazena o histórico navegação e o último 'hash'. Permitindo retornar a ultima página e ultima scrollagem.
+
+    console.log('savedPoition => ', savedPoition)
+
+    if(savedPoition) {
+      return savedPoition;
+    }
+
+    if(to.hash) {
+      return { el: to.hash } //to.hash deve corresponder a um id de elemento HTML
+      //fragmento = #secao_1 => id = secao_1
+    }
+
+    return { left: 0, top: 0 } //left = x; top = y
+  }, 
+  routes 
+});
+
+//Guarda de rotas globais definidas (antes e depois)
+// router.beforeEach((to, from, next) => {
+router.beforeEach(() => {
+  // console.log('Guarda global beforeEach');
+  // if(to.meta.requerAutorizacao) {
+  //   console.log('Validar o acesso');
+  // } else {
+  //   console.log('Apenas seguir a navegação');
+  // }
 })
+
+// router.afterEach((to, from) => {
+router.afterEach(() => {
+  // console.log('Guarda de rota executada após a conclusão da navegação');
+  // console.log('Origem: ', from);
+  // console.log('Destino: ', to);
+  // console.log('Guarda global afterEach');
+}),
+// Guarda Global beforeResolve (Antes de navegar, porém após a conclusão das demais guardas de rota)
+router.beforeResolve(() => {
+  // console.log('Guarda global beforeResolve');
+});
 
 export default router;

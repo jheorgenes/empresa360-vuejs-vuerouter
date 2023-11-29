@@ -37,6 +37,16 @@ export default {
   mixins: [ApiMixin],
   created() {
     this.getDadosApi('http://localhost:3000/leads');
+  },
+  // Guarda de componentes (beforeRouteEnter) - Executa antes mesmo do componente ser criado, ou seja, não dá acesso a demais atributos
+  // beforeRouteEnter(to, from, next) {
+  beforeRouteEnter() {
+    console.log('Guarda de componente beforeRouteEnter');
+  },
+  // Guarda de componentes (beforeRouteLeave) - Executa antes de deixar a rota em questão
+  // beforeRouteLeave(to, from, next) {
+  beforeRouteLeave() {
+    console.log('Guarda de componente beforeRouteLeave');
   }
 }
 </script>
